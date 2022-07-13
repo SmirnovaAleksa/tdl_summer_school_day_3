@@ -11,31 +11,55 @@ describe("Juice-shop without auto login", () => {
 
   it("Login", () => {
     // Click Account button
+    LoginPage.accButton.click();
     // Click Login button
+    LoginPage.navbarloginButton.click();
     // Set email value to "demo"
+    LoginPage.emailInput.type("demo");
     // Set password value to "demo"
+    LoginPage.passwordInput.type("demo");
     // Click Log in
+    LoginPage.loginButton.click();
     // Click Account button
+    LoginPage.accButton.click();
     // Validate that "demo" account name appears in the menu section
+    LoginPage.demoName.should("have.text"," demo ");
   });
 
   it("Registration", () => {
     // Click Account button
+    RegistrationPage.accButton.click();
     // Login button
+    RegistrationPage.navbarloginButton.click();
     // Click "Not yet a customer?"
+    RegistrationPage.newCustumer.click();
     // Find - how to generate random number in JS
+    let randomNum = Math.floor(Math.random() * 9999);
     // Use that number to genarate unique email address, e.g.: email_7584@ebox.com
+    RegistrationPage.newEmail.type(`email_${randomNum}@ebox.com`)
     // Save that email address to some variable
+    let randomEmail = `email_${randomNum}@ebox.com`;
     // Fill in password field and repeat password field with same password
+    RegistrationPage.newPassword.type("password");
+    RegistrationPage.repeatPassword.type("password");
     // Click on Security Question menu
+    RegistrationPage.selectButton.click();
     // Select  "Name of your favorite pet?"
+    RegistrationPage.favPetOption.click();
     // Fill in answer
+    RegistrationPage.securityAnswer.type("Kisa");
     // Click Register button
+    RegistrationPage.registerButton.click();
     // Set email value to previously created email
+    RegistrationPage.emailInput.type(randomEmail);
     // Set password value to previously used password value
+    RegistrationPage.passwordInput.type("password");
     // Click login button
+    RegistrationPage.loginButton.click();
     // Click Account button
+    RegistrationPage.accButton.click();
     // Validate that account name (with previously created email address) appears in the menu section
+   RegistrationPage.demoName.should("contain.text",randomEmail);
   });
 });
 
@@ -47,16 +71,29 @@ describe("Juice-shop with Auto login", () => {
 
   it("Search and validate Lemon", () => {
     // Click on search icon
+    HomePage.searchButton.click();
     // Search for Lemon
+    HomePage.searchInput.type("Lemon{enter}");
     // Select a product card - Lemon Juice (500ml)
+    HomePage.lemonJuice.click();
     // Validate that the card (should) contains "Sour but full of vitamins."
+    HomePage.lemonJuiceDescription.should("have.text","Sour but full of vitamins.");
   });
 
-  // Create scenario - Search 500ml and validate Lemon, while having multiple cards
-  // Click on search icon
-  // Search for 500ml
-  // Select a product card - Lemon Juice (500ml)
-  // Validate that the card (should) contains "Sour but full of vitamins."
+   // Create scenario - Search 500ml and validate Lemon, while having multiple cards
+  it.only("Search 500ml and validate Lemon, while having multiple cards", () => {
+    // Click on search icon
+    HomePage.searchButton.click();
+    // Search for 500ml
+    HomePage.searchInput.type("500ml{enter}");
+    // Select a product card - Lemon Juice (500ml)
+    cy.get("[class='item-name']").eq(1).click();
+    // cy.get('[style="left: calc((33.3333% - 20px + 30px) * 1); width: calc((33.3333% - 20px) * 1 + 0px); margin-top: 0px; padding-top: calc((33.3333% - 20px) * 1 + 0px);"] > .mat-grid-tile-content > .mat-card').click();
+    // // Validate that the card (should) contains "Sour but full of vitamins."
+    HomePage.lemonJuiceDescription.should("have.text","Sour but full of vitamins.");
+  });
+ 
+  
 
   // Create scenario - Search 500ml and validate cards
   // Click on search icon
