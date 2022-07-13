@@ -93,7 +93,7 @@ describe("Juice-shop with Auto login", () => {
   });
 
   // Create scenario - Search 500ml and validate cards
-  it.only("Search 500ml and validate cards", () => {
+  it("Search 500ml and validate cards", () => {
     // Click on search icon
     HomePage.searchButton.click();
     // Search for 500ml
@@ -118,70 +118,141 @@ describe("Juice-shop with Auto login", () => {
   
 
   // Create scenario - Read a review
+  it("Read a review", () => {
   // Click on search icon
+  HomePage.searchButton.click();
   // Search for King
+  HomePage.searchInput.type("King{enter}");
   // Select a product card - OWASP Juice Shop "King of the Hill" Facemask
+  HomePage.itemName.contains('OWASP Juice Shop "King of the Hill" Facemask').click();
   // Click expand reviews button/icon (wait for reviews to appear)
+  //HomePage.expandReiew.click();
+  cy.wait(160);
+  HomePage.expandReiew.click();
   // Validate review - K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!
+  HomePage.firstComment.should("have.text","K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!");
+  });
 
   // Create scenario - Add a review
-  // Click on search icon
-  // Search for Raspberry
-  // Select a product card - Raspberry Juice (1000ml)
-  // Type in review - "Tastes like metal"
-  // Click Submit
-  // Click expand reviews button/icon (wait for reviews to appear)
-  // Validate review -  "Tastes like metal"
+  it("Add a review", () => {
+    // Click on search icon
+    HomePage.searchButton.click();
+    // Search for Raspberry
+    HomePage.searchInput.type("Raspberry{enter}");
+    // Select a product card - Raspberry Juice (1000ml)
+    HomePage.itemName.contains('Raspberry Juice').click();
+    // Type in review - "Tastes like metal"
+    cy.wait(160);
+    HomePage.inputComment.type("Tastes like metal");
+    // Click Submit
+    HomePage.submitButton.click();
+    // Click expand reviews button/icon (wait for reviews to appear)
+    HomePage.expandReiew.click();
+    // Validate review -  "Tastes like metal"
+    //HomePage.firstComment.should("have.text","Tastes like metal");
+    HomePage.comentSection.last().should("contain.text","Tastes like metal");
+  });
 
   // Create scenario - Validate product card amount
-  // Validate that the default amount of cards is 12
-  // Change items per page (at the bottom of page) to 24
-  // Validate that the amount of cards is 24
-  // Change items per page (at the bottom of page) to 36
-  // Validate that the amount of cards is 35
+  it("Validate product card amount", () => {
+    // Validate that the default amount of cards is 12
+    HomePage.cards.should("have.length","12");
+    // Change items per page (at the bottom of page) to 24
+    HomePage.selectAmontOfCards.click();
+    HomePage.optionOne.click();
+    // Validate that the amount of cards is 24
+    HomePage.cards.should("have.length","24");
+    // Change items per page (at the bottom of page) to 36
+    HomePage.selectAmontOfCards.click();
+    HomePage.optionTwo.click();
+    // Validate that the amount of cards is 35
+    HomePage.cards.should("have.length","35");
+  });
 
   // Create scenario - Buy Girlie T-shirt
-  // Click on search icon
-  // Search for Girlie
-  // Add to basket "Girlie"
-  // Click on "Your Basket" button
-  // Create page object - BasketPage
-  // Click on "Checkout" button
-  // Create page object - SelectAddressPage
-  // Select address containing "United Fakedom"
-  // Click Continue button
-  // Create page object - DeliveryMethodPage
-  // Select delivery speed Standard Delivery
-  // Click Continue button
-  // Create page object - PaymentOptionsPage
-  // Select card that ends with "5678"
-  // Click Continue button
-  // Create page object - OrderSummaryPage
-  // Click on "Place your order and pay"
-  // Create page object - OrderCompletionPage
-  // Validate confirmation - "Thank you for your purchase!"
+  it("Buy Girlie T-shirt", () => {
+    // Click on search icon
+    HomePage.searchButton.click();
+    // Search for Girlie
+    HomePage.searchInput.type("Girlie{enter}");
+    // Add to basket "Girlie"
+    HomePage.addBasketButton.click();
+    // Click on "Your Basket" button
+    HomePage.basketButton.click();
+    // Create page object - BasketPage
+    // Click on "Checkout" button
+    HomePage.checkoutButton.click();
+    // Create page object - SelectAddressPage
+    // Select address containing "United Fakedom"
+    HomePage.check.click();
+    // Click Continue button
+    HomePage.buttonNext.click();
+    // Create page object - DeliveryMethodPage
+    // Select delivery speed Standard Delivery
+    HomePage.standartDelivery.click();
+    // Click Continue button
+    HomePage.nextButton.click();
+    // Create page object - PaymentOptionsPage
+    // Select card that ends with "5678"
+    HomePage.check.click();
+    // Click Continue button
+    HomePage.nextButton.click();
+    // Create page object - OrderSummaryPage
+    // Click on "Place your order and pay"
+    HomePage.checkoutButton.click();
+    // Create page object - OrderCompletionPage
+    // Validate confirmation - "Thank you for your purchase!"
+    HomePage.validation.should("have.text","Thank you for your purchase!");
+  });
 
   // Create scenario - Add address
-  // Click on Account
-  // Click on Orders & Payment
-  // Click on My saved addresses
-  // Create page object - SavedAddressesPage
-  // Click on Add New Address
-  // Create page object - CreateAddressPage
-  // Fill in the necessary information
-  // Click Submit button
-  // Validate that previously added address is visible
+  it("Add address", () => {
+    // Click on Account
+    RegistrationPage.accButton.click();
+    // Click on Orders & Payment
+    HomePage.button.contains('Orders & Payment').click();
+    // Click on My saved addresses
+    HomePage.button.contains('My saved addresses').click();
+    // Create page object - SavedAddressesPage
+    // Click on Add New Address
+    HomePage.button.contains('Add New Address').click();
+    // Create page object - CreateAddressPage
+    // Fill in the necessary information
+    HomePage.countryInput.type("Latvia");
+    HomePage.nameInput.type("Aleksandra");
+    HomePage.mobileInput.type("26777879");
+    HomePage.zipCodeInput.type("LV-3601");
+    HomePage.addressInput.type("Sigūldas iela 35");
+    HomePage.cityInput.type("Ventspils");
+    HomePage.StateInput.type("Kurzeme");
+    // Click Submit button
+    HomePage.submitButton.click();
+    // Validate that previously added address is visible
+    HomePage.addressTable.last().should("contain.text","Aleksandra  Sigūldas iela 35, Ventspils, Kurzeme, LV-3601 Latvia");
+  });
 
   // Create scenario - Add payment option
-  // Click on Account
-  // Click on Orders & Payment
-  // Click on My payment options
-  // Create page object - SavedPaymentMethodsPage
-  // Click Add new card
-  // Fill in Name
-  // Fill in Card Number
-  // Set expiry month to 7
-  // Set expiry year to 2090
-  // Click Submit button
-  // Validate that the card shows up in the list
+  it.only("Add payment option", () => {
+    // Click on Account
+    RegistrationPage.accButton.click();
+    // Click on Orders & Payment
+    HomePage.button.contains('Orders & Payment').click();
+    // Click on My payment options
+    HomePage.button.contains('My Payment Options').click();
+    // Create page object - SavedPaymentMethodsPage
+    // Click Add new card
+    HomePage.addNewCard.click();
+    // Fill in Name
+    HomePage.countryInput.type("Aleksandra");
+    // Fill in Card Number
+    HomePage.nameInput.type("1234561234561234");
+    // Set expiry month to 7
+    HomePage.mobileInput.select('7');
+    // Set expiry year to 2090
+    HomePage.zipCodeInput.select('2090');
+    // Click Submit button
+    HomePage.submitButton.click();
+    // Validate that the card shows up in the list
+    HomePage.addressTable.last().should("contain.text","******1234 Aleksandra7/2090");
+  });
 });
