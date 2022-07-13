@@ -75,37 +75,47 @@ describe("Juice-shop with Auto login", () => {
     // Search for Lemon
     HomePage.searchInput.type("Lemon{enter}");
     // Select a product card - Lemon Juice (500ml)
-    HomePage.lemonJuice.click();
+    HomePage.itemName.contains("Lemon Juice").click();
     // Validate that the card (should) contains "Sour but full of vitamins."
-    HomePage.lemonJuiceDescription.should("have.text","Sour but full of vitamins.");
+    HomePage.itemDescription.should("have.text","Sour but full of vitamins.");
   });
 
    // Create scenario - Search 500ml and validate Lemon, while having multiple cards
-  it.only("Search 500ml and validate Lemon, while having multiple cards", () => {
+  it("Search 500ml and validate Lemon, while having multiple cards", () => {
     // Click on search icon
     HomePage.searchButton.click();
     // Search for 500ml
     HomePage.searchInput.type("500ml{enter}");
     // Select a product card - Lemon Juice (500ml)
-    cy.get("[class='item-name']").eq(1).click();
-    // cy.get('[style="left: calc((33.3333% - 20px + 30px) * 1); width: calc((33.3333% - 20px) * 1 + 0px); margin-top: 0px; padding-top: calc((33.3333% - 20px) * 1 + 0px);"] > .mat-grid-tile-content > .mat-card').click();
+    HomePage.itemName.contains("Lemon Juice").click();
     // // Validate that the card (should) contains "Sour but full of vitamins."
-    HomePage.lemonJuiceDescription.should("have.text","Sour but full of vitamins.");
+    HomePage.itemDescription.should("have.text","Sour but full of vitamins.");
   });
- 
-  
 
   // Create scenario - Search 500ml and validate cards
-  // Click on search icon
-  // Search for 500ml
-  // Select a product card - Eggfruit Juice (500ml)
-  // Validate that the card (should) contains "Now with even more exotic flavour."
-  // Close the card
-  // Select a product card - Lemon Juice (500ml)
-  // Validate that the card (should) contains "Sour but full of vitamins."
-  // Close the card
-  // Select a product card - Strawberry Juice (500ml)
-  // Validate that the card (should) contains "Sweet & tasty!"
+  it.only("Search 500ml and validate cards", () => {
+    // Click on search icon
+    HomePage.searchButton.click();
+    // Search for 500ml
+    HomePage.searchInput.type("500ml{enter}");
+    // Select a product card - Eggfruit Juice (500ml)
+    HomePage.itemName.contains("Eggfruit Juice").click();
+    // Validate that the card (should) contains "Now with even more exotic flavour."
+    HomePage.itemDescription.should("have.text","Now with even more exotic flavour.");
+    // Close the card
+    HomePage.closeCard.click();
+    // Select a product card - Lemon Juice (500ml)
+    HomePage.itemName.contains("Lemon Juice").click();
+    // Validate that the card (should) contains "Sour but full of vitamins."
+    HomePage.itemDescription.should("have.text","Sour but full of vitamins.");
+    // Close the card
+    HomePage.closeCard.click();
+    // Select a product card - Strawberry Juice (500ml)
+    HomePage.itemName.contains("Strawberry Juice").click();
+    // Validate that the card (should) contains "Sweet & tasty!"
+    HomePage.itemDescription.should("have.text","Sweet & tasty!");
+  });
+  
 
   // Create scenario - Read a review
   // Click on search icon

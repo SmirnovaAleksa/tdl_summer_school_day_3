@@ -18,11 +18,15 @@ class HomePage extends BasePage {
   static get searchInput() {
     return cy.get('#mat-input-0');
   }
-  static get lemonJuice() {
-    return cy.get('.mat-card');
-  }
-  static get lemonJuiceDescription() {
+  static get itemDescription() {
     return cy.get('.container > [fxlayout="row"] > :nth-child(2) > :nth-child(2)');
+  }
+  static get itemName() {
+    return cy.get("[class='item-name']");
+  }
+  
+  static get closeCard() {
+    return cy.get('.close-dialog');
   }
 }
 
