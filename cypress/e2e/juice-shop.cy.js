@@ -253,6 +253,7 @@ describe("Juice-shop with Auto login", () => {
     // Click Submit button
     HomePage.submitButton.click();
     // Validate that the card shows up in the list
+    cy.wait(100);
     HomePage.addressTable.last().should("contain.text","******1234 Aleksandra7/2090");
   });
 });
