@@ -68,13 +68,13 @@ class HomePage extends BasePage {
     return cy.get('#checkoutButton');
   }
   static get check(){
-    return cy.get('.mat-radio-inner-circle');
+    return cy.get('[class = "mat-radio-inner-circle"]').eq(0);
   }
   static get buttonNext(){
     return cy.get('.btn-next');
   }
   static get standartDelivery(){
-    return cy.get('#mat-radio-43 > .mat-radio-label');
+    return cy.get('[class = "mat-radio-inner-circle"]').eq(2);
   }
   static get nextButton(){
     return cy.get('.nextButton');

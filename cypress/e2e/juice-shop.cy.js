@@ -142,7 +142,7 @@ describe("Juice-shop with Auto login", () => {
     // Select a product card - Raspberry Juice (1000ml)
     HomePage.itemName.contains('Raspberry Juice').click();
     // Type in review - "Tastes like metal"
-    cy.wait(160);
+    cy.wait(200);
     HomePage.inputComment.type("Tastes like metal");
     // Click Submit
     HomePage.submitButton.click();
@@ -232,7 +232,7 @@ describe("Juice-shop with Auto login", () => {
   });
 
   // Create scenario - Add payment option
-  it.only("Add payment option", () => {
+  it("Add payment option", () => {
     // Click on Account
     RegistrationPage.accButton.click();
     // Click on Orders & Payment
