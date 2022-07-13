@@ -87,19 +87,19 @@ class HomePage extends BasePage {
   }
   //--address--
   // cy.get('#mat-input-1')
-  static get countryInput(){
+  static get firstInput(){
     return cy.get('#mat-input-1');
   }
   // cy.get('#mat-input-2')
-  static get nameInput(){
+  static get secondInput(){
     return cy.get('#mat-input-2');
   }
   // cy.get('#mat-input-3')
-  static get mobileInput(){
+  static get thirdInput(){
     return cy.get('#mat-input-3');
   }
   // cy.get('#mat-input-4')
-  static get zipCodeInput(){
+  static get forthInput(){
     return cy.get('#mat-input-4');
   }
   // cy.get('#address')
@@ -115,7 +115,7 @@ class HomePage extends BasePage {
     return cy.get('#mat-input-7');
   }
 
-  static get addressTable(){
+  static get table(){
     return cy.get('[class = "mat-row cdk-row ng-star-inserted"]');
   }
   static get button(){

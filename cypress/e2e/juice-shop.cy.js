@@ -218,17 +218,17 @@ describe("Juice-shop with Auto login", () => {
     HomePage.button.contains('Add New Address').click();
     // Create page object - CreateAddressPage
     // Fill in the necessary information
-    HomePage.countryInput.type("Latvia");
-    HomePage.nameInput.type("Aleksandra");
-    HomePage.mobileInput.type("26777879");
-    HomePage.zipCodeInput.type("LV-3601");
+    HomePage.firstInput.type("Latvia");
+    HomePage.secondInput.type("Aleksandra");
+    HomePage.thirdInput.type("26777879");
+    HomePage.forthInput.type("LV-3601");
     HomePage.addressInput.type("Sigūldas iela 35");
     HomePage.cityInput.type("Ventspils");
     HomePage.StateInput.type("Kurzeme");
     // Click Submit button
     HomePage.submitButton.click();
     // Validate that previously added address is visible
-    HomePage.addressTable.last().should("contain.text","Aleksandra  Sigūldas iela 35, Ventspils, Kurzeme, LV-3601 Latvia");
+    HomePage.table.last().should("contain.text","Aleksandra  Sigūldas iela 35, Ventspils, Kurzeme, LV-3601 Latvia");
   });
 
   // Create scenario - Add payment option
@@ -243,17 +243,17 @@ describe("Juice-shop with Auto login", () => {
     // Click Add new card
     HomePage.addNewCard.click();
     // Fill in Name
-    HomePage.countryInput.type("Aleksandra");
+    HomePage.firstInput.type("Aleksandra");
     // Fill in Card Number
-    HomePage.nameInput.type("1234561234561234");
+    HomePage.secondInput.type("1234561234561234");
     // Set expiry month to 7
-    HomePage.mobileInput.select('7');
+    HomePage.thirdInput.select('7');
     // Set expiry year to 2090
-    HomePage.zipCodeInput.select('2090');
+    HomePage.forthInput.select('2090');
     // Click Submit button
     HomePage.submitButton.click();
     // Validate that the card shows up in the list
     cy.wait(100);
-    HomePage.addressTable.last().should("contain.text","******1234 Aleksandra7/2090");
+    HomePage.table.last().should("contain.text","******1234 Aleksandra7/2090");
   });
 });
